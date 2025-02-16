@@ -2,8 +2,7 @@ const Login = require('../model/loginModel');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const jwtSecretKey = crypto.randomBytes(32).toString('hex');
-const bcrypt = require('bcryptjs');
-
+const bcrypt = require('bcrypt');
 const express = require('express');
 
 const app = express();
