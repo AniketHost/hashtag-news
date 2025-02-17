@@ -54,7 +54,9 @@ exports.registerUser = async (req, res) => {
     const existingUsers = await Login.find();
 
     if (existingUsers.length === 0) {
-      const hashedPassword = await bcrypt.hashSync(password, 10);
+      // const hashedPassword = await bcrypt.hashSync(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
+
 
       const newUser = new Login({
         userId,
