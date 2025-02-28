@@ -10,10 +10,29 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const router = require('./routes/router');
 const cookieParser = require('cookie-parser');
 
+import axios from 'axios';
+
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
+
+const serverUrl = process.env.CLIENT_ORIGIN;
+const interval = 300000;
+
+function reloadWebsite() {
+
+  axios.get(serverUrl).then((response)=>{
+    console.log(response,'website Reload')
+  }).catch((error)=>{
+    console.log(`Error : ${error.message}`)
+  })
+
+}
+
+setInterval(reloadWebsite,interval)
+
+
 
 // CORS configuration
 const corsOptions = {
@@ -89,13 +108,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/news-portal/index.html'));
 });
 
-function preventSleep() {
-  setInterval(() => {
-      console.log("Preventing sleep... process active");
-  }, 300000); // 5 minutes
-}
 
-preventSleep();
 
 
 // Start the server
