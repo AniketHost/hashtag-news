@@ -10,7 +10,7 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const router = require('./routes/router');
 const cookieParser = require('cookie-parser');
 
-import axios from 'axios';
+const axios = require('axios');
 
 // Load environment variables from .env file
 dotenv.config();
