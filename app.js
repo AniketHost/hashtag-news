@@ -89,6 +89,15 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/news-portal/index.html'));
 });
 
+function preventSleep() {
+  setInterval(() => {
+      console.log("Preventing sleep... process active");
+  }, 300000); // 5 minutes
+}
+
+preventSleep();
+
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
