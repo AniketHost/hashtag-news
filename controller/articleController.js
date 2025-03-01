@@ -130,7 +130,6 @@ exports.getArticles = async (req, res) => {
   // console.log(req.body,"uhuh");
 
   try {
-    console.log(req.query); // Log the query object to check received parameters
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const pageSize = 10; // Number of articles to send per page
 
