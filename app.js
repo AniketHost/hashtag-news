@@ -12,25 +12,25 @@ const cookieParser = require('cookie-parser');
 
 const axios = require('axios');
 
+const cron = require('node-cron');
+
+
+
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 
 const serverUrl = process.env.CLIENT_ORIGIN;
-const interval = 300000;
 
-function reloadWebsite() {
-
-  axios.get(serverUrl).then((response)=>{
-    console.log(response,'website Reload')
-  }).catch((error)=>{
-    console.log(`Error : ${error.message}`)
-  })
-
-}
-
-setInterval(reloadWebsite,interval)
+cron.schedule('*/5 * * * *', async () => {
+  try {
+    const response = await axios.get(serverUrl);
+    console.log(`Health check response: ${response.status} , ${serverUrl}`);
+  } catch (error) {
+    console.error(`Health check error: ${error.message}`);
+  }
+});
 
 
 
