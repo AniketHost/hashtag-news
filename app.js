@@ -16,7 +16,7 @@ const cron = require('node-cron');
 
 
 
-// Load environment variables from .env file
+
 dotenv.config();
 
 const app = express();
