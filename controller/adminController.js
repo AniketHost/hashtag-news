@@ -1,25 +1,18 @@
 
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
-const { json } = require('body-parser');
-const { GoogleAuth } = require('google-auth-library');
 
+require('dotenv').config();
 
 // const analyticsDataClient = new BetaAnalyticsDataClient();
 
 
 const propertyId = process.env.GA4_PROPERTY_ID;
 
-const credentials = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+
+// No need to pass auth, the library uses GOOGLE_APPLICATION_CREDENTIALS from env
+const analyticsDataClient = new BetaAnalyticsDataClient();
 
 
-// Create GoogleAuth instance
-const auth = new GoogleAuth({
-  credentials,
-  scopes: 'https://www.googleapis.com/auth/analytics.readonly',
-});
-
-
-const analyticsDataClient = new BetaAnalyticsDataClient({ auth });
 
 exports.websiteViews = async (req, res) => {
     try {
