@@ -2,7 +2,12 @@
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 const { json } = require('body-parser');
 
-const analyticsDataClient = new BetaAnalyticsDataClient();
+// const analyticsDataClient = new BetaAnalyticsDataClient();
+
+
+const analyticsDataClient = new BetaAnalyticsDataClient({
+  keyFilename: process.env.GOOGLE_CREDENTIALS,
+});
 
 
 const propertyId = '421339925';
