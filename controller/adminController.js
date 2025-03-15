@@ -1,14 +1,11 @@
 
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 const { json } = require('body-parser');
-const dotenv = require('dotenv');
 
 const analyticsDataClient = new BetaAnalyticsDataClient();
 
-dotenv.config();
 
-
-const propertyId = process.env.GA4_PROPERTY_ID;
+const propertyId = '421339925';
 
 
 exports.websiteViews = async (req, res) => {
@@ -86,6 +83,8 @@ exports.articleViews = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch article views' });
   }
 };
+
+
 
 
 
