@@ -6,8 +6,9 @@ const { json } = require('body-parser');
 
 
 const analyticsDataClient = new BetaAnalyticsDataClient({
-  keyFilename: process.env.GOOGLE_CREDENTIALS,
+  credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS), // Parse JSON string
 });
+
 
 
 const propertyId = '421339925';
