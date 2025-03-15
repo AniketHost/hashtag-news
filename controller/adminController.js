@@ -62,7 +62,7 @@ exports.articleViews = async (req, res) => {
       name: `properties/${propertyId}/metadata`,
     });
 
-    console.log('Available Dimensions:', metadata.dimensions.map(dim => dim.apiName));
+    // console.log('Available Dimensions:', metadata.dimensions.map(dim => dim.apiName));
 
     // ✅ Fetch article views
     const [response] = await analyticsDataClient.runReport({
@@ -78,7 +78,7 @@ exports.articleViews = async (req, res) => {
       },
     });
 
-    console.log('GA4 Response:', JSON.stringify(response, null, 2));
+    // console.log('GA4 Response:', JSON.stringify(response, null, 2));
 
     // ✅ Extract views count
     const totalViews = response.rows?.[0]?.metricValues?.[0]?.value || 0;
@@ -124,7 +124,7 @@ exports.topActivePages = async (req, res) => {
 
 exports.allArticleViews = async (req, res) => {
   try {
-    console.log('🔍 Fetching views for all articles...');
+    // console.log('🔍 Fetching views for all articles...');
 
     // ✅ Fetch all article views from GA4
     const [response] = await analyticsDataClient.runReport({
@@ -134,7 +134,7 @@ exports.allArticleViews = async (req, res) => {
       dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
     });
 
-    console.log('GA4 Response:', response);
+    // console.log('GA4 Response:', response);
 
     // ✅ Process response into a readable format
     const articleViews = response.rows?.map(row => ({
