@@ -76,6 +76,12 @@ router.get('/topActivePages', async function (req, res, next) {
 });
 
 
+router.get('/allArticleViews', async function (req, res, next) {
+    console.log("✅ /allArticleViews route hit");
+    adminController.allArticleViews(req, res);
+});
+
+
 
 
 // router.get('/getDataMonth', contactController.getMonthlySubmissionCounts);
