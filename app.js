@@ -23,8 +23,7 @@ dotenv.config();
 const app = express();
 
 const serverUrl = "https://hashtag-news.onrender.com"
-const interval = 180000;  
-
+const interval = 300000;
 
 function reloadWebsite() {
 
