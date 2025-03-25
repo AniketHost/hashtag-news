@@ -3,12 +3,9 @@ const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 const { json } = require('body-parser');
 
 // const analyticsDataClient = new BetaAnalyticsDataClient();
-
-
 const analyticsDataClient = new BetaAnalyticsDataClient({
   credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS), // Parse JSON string
 });
-
 
 
 const propertyId = '421339925';
@@ -50,8 +47,8 @@ exports.websiteViews = async (req, res) => {
 exports.articleViews = async (req, res) => {
   try {
     const articleId = req.query.articleId;
-    console.log('🔍 Full Request URL:', req.originalUrl);
-    console.log('Fetching views for article:', articleId);
+    // console.log('🔍 Full Request URL:', req.originalUrl);
+    // console.log('Fetching views for article:', articleId);
 
     if (!articleId) {
       return res.status(400).json({ error: 'Missing articleId' });
@@ -78,7 +75,7 @@ exports.articleViews = async (req, res) => {
       },
     });
 
-    // console.log('GA4 Response:', JSON.stringify(response, null, 2));
+    // console.log('GA4 Response:', JSON.stringify(response, null, 2));s
 
     // ✅ Extract views count
     const totalViews = response.rows?.[0]?.metricValues?.[0]?.value || 0;
@@ -129,7 +126,10 @@ exports.allArticleViews = async (req, res) => {
     // ✅ Fetch all article views from GA4
     const [response] = await analyticsDataClient.runReport({
       property: `properties/${propertyId}`,
-      dimensions: [{ name: 'customEvent:article_id' }], // Group by article_id
+      dimensions: [
+        { name: 'customEvent:article_id' },  // Group by article_id
+        { name: 'customEvent:article_title' } // Include article_title dimension
+      ],
       metrics: [{ name: 'eventCount' }], // Get total views
       dateRanges: [{ startDate: '30daysAgo', endDate: 'today' }],
     });
@@ -138,8 +138,9 @@ exports.allArticleViews = async (req, res) => {
 
     // ✅ Process response into a readable format
     const articleViews = response.rows?.map(row => ({
-      articleId: row.dimensionValues[0].value, // Extract article_id
-      totalViews: parseInt(row.metricValues[0].value, 10), // Convert event count to number
+      articleId: row.dimensionValues[0].value,  // Extract article_id
+      articleTitle: row.dimensionValues[1].value,  // Extract article_title
+      totalViews: parseInt(row.metricValues[0].value, 10),  // Convert event count to number
     })) || [];
 
     res.json({ articleViews }); // Send JSON response
@@ -148,4 +149,3 @@ exports.allArticleViews = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch article views' });
   }
 };
-

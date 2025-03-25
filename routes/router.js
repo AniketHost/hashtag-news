@@ -66,18 +66,15 @@ router.get('/website-views', async function (req, res, next) {
 
 
 router.get('/article-views', async function (req, res, next) {
-    console.log("✅ /article-views route hit");
     adminController.articleViews(req, res);
 });
 
 router.get('/topActivePages', async function (req, res, next) {
-    console.log("✅ /topActivePages route hit");
     adminController.topActivePages(req, res);
 });
 
 
 router.get('/allArticleViews', async function (req, res, next) {
-    console.log("✅ /allArticleViews route hit");
     adminController.allArticleViews(req, res);
 });
 
